@@ -29,41 +29,42 @@
                 {{ session('status') }}
             </div>
         @endif
-        <table class="table table-bordered">
-            <thead class="text-center">
-                <tr>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Date of Birth</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody class="text-center">
-                @foreach ($users as $user)
+        <div style="overflow-x:auto;">
+            <table class="table table-bordered">
+                <thead class="text-center">
                     <tr>
-                        <td scope="row">{{ $user->fname }}</td>
-                        <td scope="row">{{ $user->lname }}</td>
-                        <td scope="row">{{ $user->date_of_birth }}</td>
-                        <td scope="row">{{ $user->username }}</td>
-                        <td scope="row">{{ $user->email }}</td>
-                        <td>
-                            <div class="d-flex justify-content-around">
-                                <a href="{{ route('edit', $user->id) }}" class="btn btn-warning">Edit</a>
-                                <form action="{{ route('destroy', $user->id) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger"
-                                        onclick="return confirm('Are you sure to delete?')">Delete</button>
-                                </form>
-                            </div>
-                        </td>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Date of Birth</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Action</th>
                     </tr>
-                @endforeach
-
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="text-center">
+                    @foreach ($users as $user)
+                        <tr>
+                            <td scope="row">{{ $user->fname }}</td>
+                            <td scope="row">{{ $user->lname }}</td>
+                            <td scope="row">{{ $user->date_of_birth }}</td>
+                            <td scope="row">{{ $user->username }}</td>
+                            <td scope="row">{{ $user->email }}</td>
+                            <td>
+                                <div class="d-flex justify-content-around">
+                                    <a href="{{ route('edit', $user->id) }}" class="btn btn-warning">Edit</a>
+                                    <form action="{{ route('destroy', $user->id) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"
+                                            onclick="return confirm('Are you sure to delete?')">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         <div class="d-flex justify-content-end">
             {{ $users->links() }}
         </div>
