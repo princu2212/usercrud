@@ -36,21 +36,21 @@
                                 value="{{ $user->lname }}">
                         </div>
                     </div>
-                    <div class="  form-group mb-3">
+                    <div class="form-group mb-3">
                         <label class="control-label" for="name">Date of Birth:</label>
                         <div class="col-sm-12">
-                            <input type="dob" class="form-control" placeholder="Date of Birth" name="date_of_birth"
+                            <input type="date" class="form-control" placeholder="Date of Birth" name="date_of_birth"
                                 value="{{ $user->date_of_birth }}">
                         </div>
                     </div>
-                    <div class="  form-group mb-3">
+                    <div class="form-group mb-3">
                         <label class="control-label" for="name">Username:</label>
                         <div class="col-sm-12">
                             <input type="text" class="form-control" placeholder="Username" name="username"
                                 value="{{ $user->username }}">
                         </div>
                     </div>
-                    <div class="  form-group mb-3">
+                    <div class="form-group mb-3">
                         <label class="control-label" for="email">Email:</label>
                         <div class="col-sm-12">
                             <input type="email" class="form-control" placeholder="Enter email" name="email"

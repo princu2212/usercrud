@@ -9,8 +9,13 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::get();
+        $users = User::paginate(5);
         return view('index', compact('users'));
+    }
+
+    public function create()
+    {
+        return view('create');
     }
 
     public function store(Request $request)
@@ -33,7 +38,7 @@ class UserController extends Controller
         $user->password = $request->password;
         $user->save();
 
-        return redirect('/');
+        return redirect('/')->with('status', 'User Added Successfully!!');
     }
 
     public function edit($id)
@@ -53,7 +58,7 @@ class UserController extends Controller
         $user->password = $request->password;
         $user->save();
 
-        return redirect('/');
+        return redirect('/')->with('status', 'User Updated Successfully!!');
     }
 
     public function destroy($id)
