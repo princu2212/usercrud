@@ -4,13 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(7);
-        return view('index', compact('users'));
+        if (request()->ajax()) {
+            if (!empty($request->from_date)) {
+                $data = DB::table('users')
+                    ->whereBetween('date_of_birth', array($request->from_date, $request->to_date))
+                    ->get();
+            } else {
+                $data = DB::table('users')
+                    ->get();
+            }
+            return datatables()->of($data)->make(true);
+        }
+        return view('index');
     }
 
     public function create()
@@ -35,7 +47,7 @@ class UserController extends Controller
         $user->date_of_birth = $request->date_of_birth;
         $user->username = $request->username;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
         $user->save();
 
         return redirect('/')->with('status', 'User Added Successfully!!');
