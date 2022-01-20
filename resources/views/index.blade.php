@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>User Crud</title>
+    <title>User CRUD</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -13,27 +13,19 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    {{-- <style>
-        tfoot input {
-            width: 100%;
-            padding: 3px;
-            box-sizing: border-box;
-        }
-
-    </style> --}}
 </head>
 
 <body>
     <div class="header_title ">
         <div class="container-fluid d-flex">
             <h4><a href="{{ url('/') }}" class="text-white text-decoration-none">User Details</a> </h4>
-            <a href="{{ route('create') }}" class="btn ms-auto mx-5 rounded add_user">Add
+            <a href="{{ route('create') }}" class="btn ms-auto rounded add_user">Add
                 New User</a>
         </div>
     </div>
     <div class="container-fluid mt-3">
 
-        <div class="dropdown text-end mb-3">
+        <div class="dropdown text-end">
             <button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuButton1"
                 data-bs-toggle="dropdown" aria-expanded="false">
                 Filter <i class="fas fa-filter"></i>
@@ -97,19 +89,9 @@
                         <th scope="col">Username</th>
                         <th scope="col">Email</th>
                         <th scope="col">Date of Birth</th>
-                        <th scope="col">Action</th>
+                        <th data-orderable="false">Action</th>
                     </tr>
                 </thead>
-                {{-- <tfoot style="display: table-header-group;">
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Date of Birth</th>
-                    </tr>
-                </tfoot> --}}
                 <tbody class="text-center">
                     @foreach ($users as $user)
                         <tr>
@@ -120,14 +102,27 @@
                             <td scope="row">{{ $user->email }}</td>
                             <td>{{ Carbon\Carbon::parse($user->date_of_birth)->format('d/m/Y') }}</td>
                             <td>
-                                <div class="d-flex justify-content-around">
-                                    <a href="{{ route('edit', $user->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                    <form action="{{ route('destroy', $user->id) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm"
-                                            onclick="return confirm('Are you sure to delete?')">Delete</button>
-                                    </form>
+                                <div class="dropdown text-center">
+                                    <a class="dropdown-button" id="dropdown-menu-{{ $user->id }}"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-v"></i>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-menu-{{ $user->id }}">
+                                        <a class="dropdown-item" href="{{ route('edit', $user->id) }}">
+                                            <i class="fa fa-edit"></i>
+                                            {{ trans('Edit') }}
+                                        </a>
+                                        <form id="delete-{{ $user->id }}"
+                                            action="{{ route('destroy', $user->id) }}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                        </form>
+                                        <a class="dropdown-item" href="#"
+                                            onclick="if(confirm('{{ trans('Are you sure to delete?') }}')) document.getElementById('delete-{{ $user->id }}').submit()">
+                                            <i class="fa fa-trash"></i>
+                                            {{ trans('Delete') }}
+                                        </a>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -149,6 +144,7 @@
                 "order": [
                     [0, "desc"]
                 ]
+
             });
         });
     </script>
