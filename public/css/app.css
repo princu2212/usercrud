@@ -1,24 +1,31 @@
-*
-{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-.header_title{
-    padding: 1rem 0 1rem 1rem;
+.dataTables_filter,
+.dataTables_info {
+    display: none;
+}
+.header_title {
+    padding: 0 0 0.6rem 0rem;
     background-color: rgb(66, 155, 228);
     color: white;
 }
-.add_user{
-    padding: 0.5rem 1.5rem;
+.header_title h4 {
+    margin-top: 0.4rem;
+}
+.add_user {
+    margin-top: 0.3rem;
+    padding: 0.5rem 1rem;
     background-color: whitesmoke;
-    border:none;
+    border: none;
     border-radius: 5px solid whitesmoke;
 }
-.add_user:hover{
-    padding-right: 2rem;
-    transition: .5s ease;
+.add_user:hover {
+    padding-right: 1.2rem;
+    transition: 0.5s ease;
 }
-table th{
+table th {
     color: #4d5563;
 }
