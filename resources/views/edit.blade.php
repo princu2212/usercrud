@@ -57,6 +57,24 @@
                                 value="{{ $user->email }}">
                         </div>
                     </div>
+                    <div class="form-group mb-3">
+                        <div class="d-flex">
+                            <label for="status" class="control-label">Status<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-12">
+                                <div class="d-flex">
+                                    <div class="radio px-3">
+                                        <input type="radio" name="status" value="Active"
+                                            {{ $user->status == 'Active' ? 'checked' : '' }}>Active
+                                    </div>
+                                    <div class="radio px-3">
+                                        <input type="radio" name="status" value="In Active"
+                                            {{ $user->status == 'In Active' ? 'checked' : '' }}>In Active
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="  form-group mb-3">
                         <label class="control-label" for="password">Password:</label>
                         <div class="col-sm-12">

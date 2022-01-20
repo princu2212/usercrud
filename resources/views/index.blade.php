@@ -24,7 +24,6 @@
         </div>
     </div>
     <div class="container-fluid mt-3">
-
         <div class="dropdown text-end">
             <button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuButton1"
                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -40,25 +39,25 @@
                                     style="font-weight:bold;">Reset</a>
                             </div>
                             <tbody>
-                                <tr id="filter_col1" data-column="1">
+                                <tr id="filter_col2" data-column="2">
                                     <td>First Name</td>
                                     <td><input type="text" class="column_filter form-control" placeholder="First Name"
-                                            id="col1_filter"></td>
-                                </tr>
-                                <tr id="filter_col2" data-column="2">
-                                    <td>Last Name</td>
-                                    <td><input type="text" class="column_filter form-control" placeholder="Last Name"
                                             id="col2_filter"></td>
                                 </tr>
                                 <tr id="filter_col3" data-column="3">
-                                    <td>Username</td>
-                                    <td><input type="text" class="column_filter form-control" placeholder="Username"
+                                    <td>Last Name</td>
+                                    <td><input type="text" class="column_filter form-control" placeholder="Last Name"
                                             id="col3_filter"></td>
                                 </tr>
                                 <tr id="filter_col4" data-column="4">
+                                    <td>Username</td>
+                                    <td><input type="text" class="column_filter form-control" placeholder="Username"
+                                            id="col4_filter"></td>
+                                </tr>
+                                <tr id="filter_col5" data-column="5">
                                     <td>Email</td>
                                     <td><input type="text" class="column_filter form-control" placeholder="Email"
-                                            id="col4_filter"></td>
+                                            id="col5_filter"></td>
                                 </tr>
                                 <tr>
                                     <td>DOB Start Date</td>
@@ -84,11 +83,13 @@
                 <thead class="text-center">
                     <tr>
                         <th scope="col">ID</th>
+                        <th scope="col">Created Date</th>
                         <th scope="col">First Name</th>
                         <th scope="col">Last Name</th>
                         <th scope="col">Username</th>
                         <th scope="col">Email</th>
                         <th scope="col">Date of Birth</th>
+                        <th scope="col">Status</th>
                         <th data-orderable="false">Action</th>
                     </tr>
                 </thead>
@@ -96,11 +97,16 @@
                     @foreach ($users as $user)
                         <tr>
                             <td scope="row">{{ $user->id }}</td>
+                            <td>{{ Carbon\Carbon::parse($user->created_at)->format('d/m/Y') }}</td>
                             <td scope="row">{{ $user->fname }}</td>
                             <td scope="row">{{ $user->lname }}</td>
                             <td scope="row">{{ $user->username }}</td>
                             <td scope="row">{{ $user->email }}</td>
                             <td>{{ Carbon\Carbon::parse($user->date_of_birth)->format('d/m/Y') }}</td>
+                            <td scope="row">
+                                <span
+                                    class="badge bg-{{ $user->status == 'Active' ? 'success' : 'secondary' }}">{{ $user->status }}</span>
+                            </td>
                             <td>
                                 <div class="dropdown text-center">
                                     <a class="dropdown-button" id="dropdown-menu-{{ $user->id }}"
@@ -154,7 +160,7 @@
             function(settings, data, dataIndex) {
                 var min = parseInt($('#min').val(), 10);
                 var max = parseInt($('#max').val(), 10);
-                var age = parseFloat(data[5]) || 0; // use data for the age column
+                var age = parseFloat(data[6]) || 0; // use data for the age column
 
                 if ((isNaN(min) && isNaN(max)) ||
                     (isNaN(min) && age <= max) ||
@@ -192,6 +198,7 @@
             });
         });
     </script>
+
     {{-- Search filter End --}}
 
     {{-- Reset Start --}}

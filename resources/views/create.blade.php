@@ -69,6 +69,22 @@
                         </div>
                     </div>
                     <div class="form-group mb-3">
+                        <div class="d-flex">
+                            <label for="status" class="control-label">Status<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-12">
+                                <div class="d-flex">
+                                    <div class="radio px-3">
+                                        <input type="radio" value="Active" name="status" checked>Active
+                                    </div>
+                                    <div class="radio px-3">
+                                        <input type="radio" value="In Active" name="status">In Active
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
                         <label class="control-label" for="password">Password<span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-12">

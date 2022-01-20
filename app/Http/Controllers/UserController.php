@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -23,18 +24,20 @@ class UserController extends Controller
         $request->validate([
             'fname' => 'required',
             'lname' => 'required',
-            'date_of_birth' => 'required',
             'username' => 'required',
             'email' => 'required',
+            'date_of_birth' => 'required',
+            'status' => 'required',
             'password' => 'required',
         ]);
 
         $user = new User();
         $user->fname = $request->fname;
         $user->lname = $request->lname;
-        $user->date_of_birth = $request->date_of_birth;
         $user->username = $request->username;
         $user->email = $request->email;
+        $user->date_of_birth = $request->date_of_birth;
+        $user->status = $request->status;
         $user->password = $request->password;
         $user->save();
 
@@ -52,9 +55,10 @@ class UserController extends Controller
         $user = User::find($id);
         $user->fname = $request->fname;
         $user->lname = $request->lname;
-        $user->date_of_birth = $request->date_of_birth;
         $user->username = $request->username;
         $user->email = $request->email;
+        $user->date_of_birth = $request->date_of_birth;
+        $user->status = $request->status;
         $user->password = $request->password;
         $user->save();
 
@@ -68,4 +72,5 @@ class UserController extends Controller
 
         return redirect('/');
     }
+
 }
