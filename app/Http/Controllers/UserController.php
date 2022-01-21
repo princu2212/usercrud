@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -73,4 +73,31 @@ class UserController extends Controller
         return redirect('/');
     }
 
+    public function getDate(Request $request)
+    {
+        $records = new User();
+        $data_arr = array();
+
+        foreach ($records as $record) {
+            $id = $record->id;
+            $created_at = $record->created_at;
+            $fname = $record->fname;
+            $lname = $record->lname;
+            $username = $record->username;
+            $email = $record->email;
+            $status = $record->status;
+            $date_of_birth = $record->date_of_birth;
+
+            $data_arr[] = array(
+                "id" => $id,
+                "created_at" => $created_at,
+                "fname" => $fname,
+                "lname" => $lname,
+                "username" => $username,
+                "email" => $email,
+                "status" => $status,
+                "date_of_birth" => $date_of_birth,
+            );
+        }
+    }
 }

@@ -9,3 +9,5 @@ Route::post('/store', [UserController::class, 'store'])->name('store');
 Route::get('/edit{id}', [UserController::class, 'edit'])->name('edit');
 Route::put('/update{id}', [UserController::class, 'update'])->name('update');
 Route::delete('/destroy{id}', [UserController::class, 'destroy'])->name('destroy');
+Route::get('/daterange', [UserController::class, 'getDate'])->name('daterange');
+
