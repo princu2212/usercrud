@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use DataTables;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
     public function index()
     {
+
         $users = User::get();
+
         return view('index', compact('users'));
     }
 
@@ -72,32 +76,26 @@ class UserController extends Controller
 
         return redirect('/');
     }
-
-    public function getDate(Request $request)
-    {
-        $records = new User();
-        $data_arr = array();
-
-        foreach ($records as $record) {
-            $id = $record->id;
-            $created_at = $record->created_at;
-            $fname = $record->fname;
-            $lname = $record->lname;
-            $username = $record->username;
-            $email = $record->email;
-            $status = $record->status;
-            $date_of_birth = $record->date_of_birth;
-
-            $data_arr[] = array(
-                "id" => $id,
-                "created_at" => $created_at,
-                "fname" => $fname,
-                "lname" => $lname,
-                "username" => $username,
-                "email" => $email,
-                "status" => $status,
-                "date_of_birth" => $date_of_birth,
-            );
-        }
-    }
+    // public function select(Request $request)
+    // {
+    //     if ($request->ajax()) {
+    //         $data = User::select('*');
+    //         return Datatables::of($data)
+    //             ->addIndexColumn()
+    //             ->addColumn('status', function ($row) {
+    //                 if ($row->status) {
+    //                     return '<span class="badge bg-primary">Active</span>';
+    //                 } else {
+    //                     return '<span class="badge bg-danger">In Active</span>';
+    //                 }
+    //             })
+    //             ->filter(function ($instance) use ($request) {
+    //                 if ($request->get('status') == 'Active' || $request->get('status') == 'In Active') {
+    //                     $instance->where('status', $request->get('status'));
+    //                 }
+    //             })
+    //             ->rawColumns(['status'])
+    //             ->make(true);
+    //     }
+    // }
 }
